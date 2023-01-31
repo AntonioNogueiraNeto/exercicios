@@ -37,7 +37,15 @@ async function createSimpsonsFamily() {
   const simpsonsFamily = simpsons.filter((simpson) =>
     familyids.includes(Number(simpson.id))
   );
-  await fs.writeFile('./simpsonsFamily.json', JSON.stringify(simpsonsFamily));
+  await fs.writeFile("./simpsonsFamily.json", JSON.stringify(simpsonsFamily));
+}
+
+async function addNelsonFamilY() {
+    const filecontent = await fs.readFile("./simpsonsFamily.json", "utf-8");
+    const simpsonsFamily = JSON.parse(filecontent);
+    simpsonsFamily.push({id: '8', name: 'Nelson Muntz'});
+    await fs.writeFile('./simpsonsFamily.json', JSON.stringify(simpsonsFamily))
+
 }
 
 function main() {
@@ -45,6 +53,7 @@ function main() {
   buscarPeloId(3).then((simpson) => console.log(simpson));
   filterSimpsons();
   createSimpsonsFamily();
+  addNelsonFamilY();
 }
 
 main();
